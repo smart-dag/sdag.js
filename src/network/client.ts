@@ -9,12 +9,6 @@ export default class HubClient extends EventEmitter {
     private pendingRequests = new Map<string, (resp?: IRequestResponse) => void>();
     connected = false;
 
-    constructor(address: string) {
-        super();
-        address = address.startsWith('ws') ? address : 'ws://' + address;
-        this.address = address;
-    }
-
     private setup(client: WebSocket, onOpen: () => void = undefined) {
         let heartbeatTimer: NodeJS.Timer;
 
@@ -22,6 +16,7 @@ export default class HubClient extends EventEmitter {
             clearInterval(heartbeatTimer);
             this.ws = new WebSocket(this.address);
             this.setup(this.ws);
+            this.connected = false;
         };
 
         client.onopen = () => {
@@ -44,6 +39,9 @@ export default class HubClient extends EventEmitter {
                 this.ws = null;
             } catch (ex) { }
         }
+
+        address = address.startsWith('ws') ? address : 'ws://' + address;
+        this.address = address;
 
         return new Promise<boolean>((resolve) => {
             this.ws = new WebSocket(address || this.address);
