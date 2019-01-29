@@ -41,6 +41,7 @@ export default class HubClient extends EventEmitter {
         if (this.ws) {
             try {
                 this.ws.close();
+                this.ws = null;
             } catch (ex) { }
         }
 
@@ -226,6 +227,11 @@ export default class HubClient extends EventEmitter {
     }
 
     close() {
+        this.ws.onclose = null;
+        this.ws.onmessage = null;
+        this.ws.onopen = null;
+        this.ws.onmessage = null;
         this.ws.close()
+        this.ws = null;
     }
 }
