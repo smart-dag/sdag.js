@@ -1,7 +1,6 @@
 import { EventEmitter } from 'events';
 import { Joint, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs } from '../types/sdag';
 import crypto from 'crypto';
-import { detect } from 'detect-browser';
 import ws from 'ws';
 
 export default class HubClient extends EventEmitter {
