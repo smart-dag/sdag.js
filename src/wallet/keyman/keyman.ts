@@ -14,7 +14,7 @@ export default class Keyman {
     walletId: string;
     mainAddress: string;
 
-    constructor(mnemonicCode, passphrase = undefined) {
+    constructor(mnemonicCode: string, passphrase: string = undefined) {
         if (!bip39.validateMnemonic(mnemonicCode)) {
             throw new Error('invalid mnemnoic code');
         }

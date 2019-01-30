@@ -6,7 +6,7 @@ export default class HubClient extends EventEmitter {
     private address;
     private pendingRequests;
     connected: boolean;
-    constructor(address: string);
+    private createSocket;
     private setup;
     connect(address?: string): Promise<boolean>;
     private onMessage;

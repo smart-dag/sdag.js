@@ -1,20 +1,30 @@
 import { EventEmitter } from 'events';
 import { Joint, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs } from '../types/sdag';
 import crypto from 'crypto';
+import { detect } from 'detect-browser';
+import ws from 'ws';
 
 export default class HubClient extends EventEmitter {
 
-    private ws: WebSocket;
+    private ws: WebSocket | ws;
     private address: string;
     private pendingRequests = new Map<string, (resp?: IRequestResponse) => void>();
     connected = false;
 
-    private setup(client: WebSocket, onOpen: () => void = undefined) {
+    private createSocket(address: string) {
+        try {
+            return new WebSocket(address);
+        } catch (error) {
+            return new ws(address);            
+        }
+    }
+
+    private setup(client: WebSocket | ws, onOpen: () => void = undefined) {
         let heartbeatTimer: NodeJS.Timer;
 
         client.onclose = () => {
             clearInterval(heartbeatTimer);
-            this.ws = new WebSocket(this.address);
+            this.ws = this.createSocket(this.address);
             this.setup(this.ws);
             this.connected = false;
         };
@@ -39,7 +49,7 @@ export default class HubClient extends EventEmitter {
         this.address = address;
 
         return new Promise<boolean>((resolve) => {
-            this.ws = new WebSocket(address || this.address);
+            this.ws = this.createSocket(this.address);
             let timeout = setTimeout(() => resolve(false), 5000);
             this.setup(this.ws, () => {
                 clearTimeout(timeout);
