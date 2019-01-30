@@ -33,12 +33,7 @@ export default class HubClient extends EventEmitter {
     }
 
     async connect(address: string = undefined) {
-        if (this.ws) {
-            try {
-                this.ws.close();
-                this.ws = null;
-            } catch (ex) { }
-        }
+        this.close();
 
         address = address.startsWith('ws') ? address : 'ws://' + address;
         this.address = address;
@@ -225,11 +220,17 @@ export default class HubClient extends EventEmitter {
     }
 
     close() {
-        this.ws.onclose = null;
-        this.ws.onmessage = null;
-        this.ws.onopen = null;
-        this.ws.onmessage = null;
-        this.ws.close()
-        this.ws = null;
+        if (!this.ws) return;
+
+        try {
+            this.ws.close()
+            this.ws.onclose = null;
+            this.ws.onmessage = null;
+            this.ws.onopen = null;
+            this.ws.onmessage = null;
+            this.ws = null;
+        } catch (error) {
+
+        }
     }
 }
