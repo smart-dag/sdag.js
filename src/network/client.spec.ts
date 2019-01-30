@@ -8,20 +8,23 @@ test.before(async () => {
 });
 
 test('gets mci', async t => {
+    t.true(client.connected);
+
     let joints = await client.getJointsByMci(1);
     t.true(joints.length > 0);
 });
 
-test('gets a joint', async t => {
-    let joint = await client.getJoint('sKm2SUIwJ37KPHNCGF2616+VmdqLRnyuV5WfVq9Xj8Q=');
-    t.true(joint != null);
-    t.true(joint.joint.unit.unit === 'sKm2SUIwJ37KPHNCGF2616+VmdqLRnyuV5WfVq9Xj8Q=');
-});
-
 test('gets balance', async t => {
+    t.true(client.connected);
+
     let balance = await client.getBalance('3JX4UBJW463VJFBNEO2WOJFTPK2WLI5A');
+    t.true(!balance.error)
     t.true(balance.balance > 0);
 
-    balance = await client.getBalance('3JX4UBJW463VJFBNEO2WOJFTPK2WLI5B');
-    t.true(balance.balance === 0);
+    balance = await client.getBalance('WUUWY32RQTXHSIYIDBPUW7AOEEAFKQOH');
+    t.true(balance.balance > 0);
+
+    let joint = await client.getJoint('sKm2SUIwJ37KPHNCGF2616+VmdqLRnyuV5WfVq9Xj8Q=');
+    t.true(!joint.error);
+    t.true(joint.joint.unit.unit === 'sKm2SUIwJ37KPHNCGF2616+VmdqLRnyuV5WfVq9Xj8Q=');
 });

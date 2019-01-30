@@ -101,7 +101,7 @@ function getUnitHash(objUnit) {
             return 0;
         if (objUnit.content_hash) // already stripped
             return getBase64Hash(getNakedUnit(objUnit));
-        var objStrippedUnit = {
+        var objStrippedUnit: any = {
             content_hash: getUnitContentHash(objUnit),
             version: objUnit.version,
             alt: objUnit.alt,

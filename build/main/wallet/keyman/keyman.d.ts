@@ -7,7 +7,7 @@ export default class Keyman {
     walletId: string;
     mainAddress: string;
     constructor(mnemonicCode: string, passphrase?: string);
-    deviceAddress(xPrivKey: any): any;
+    deviceAddress(xPrivKey: any): string;
     genAddress(index: number): string;
     sign(b64_hash: string, index?: number): string;
     verify(b64_hash: string, sig: string, pub_key: string): boolean;

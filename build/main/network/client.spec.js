@@ -56,7 +56,9 @@ ava_1.default('gets mci', function (t) { return __awaiter(_this, void 0, void 0,
     var joints;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, client.getJointsByMci(1)];
+            case 0:
+                t.true(client.connected);
+                return [4 /*yield*/, client.getJointsByMci(1)];
             case 1:
                 joints = _a.sent();
                 t.true(joints.length > 0);
@@ -64,33 +66,28 @@ ava_1.default('gets mci', function (t) { return __awaiter(_this, void 0, void 0,
         }
     });
 }); });
-ava_1.default('gets a joint', function (t) { return __awaiter(_this, void 0, void 0, function () {
-    var joint;
+ava_1.default('gets balance', function (t) { return __awaiter(_this, void 0, void 0, function () {
+    var balance, joint;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, client.getJoint('sKm2SUIwJ37KPHNCGF2616+VmdqLRnyuV5WfVq9Xj8Q=')];
+            case 0:
+                t.true(client.connected);
+                return [4 /*yield*/, client.getBalance('3JX4UBJW463VJFBNEO2WOJFTPK2WLI5A')];
             case 1:
+                balance = _a.sent();
+                t.true(!balance.error);
+                t.true(balance.balance > 0);
+                return [4 /*yield*/, client.getBalance('WUUWY32RQTXHSIYIDBPUW7AOEEAFKQOH')];
+            case 2:
+                balance = _a.sent();
+                t.true(balance.balance > 0);
+                return [4 /*yield*/, client.getJoint('sKm2SUIwJ37KPHNCGF2616+VmdqLRnyuV5WfVq9Xj8Q=')];
+            case 3:
                 joint = _a.sent();
-                t.true(joint != null);
+                t.true(!joint.error);
                 t.true(joint.joint.unit.unit === 'sKm2SUIwJ37KPHNCGF2616+VmdqLRnyuV5WfVq9Xj8Q=');
                 return [2 /*return*/];
         }
     });
 }); });
-ava_1.default('gets balance', function (t) { return __awaiter(_this, void 0, void 0, function () {
-    var balance;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, client.getBalance('3JX4UBJW463VJFBNEO2WOJFTPK2WLI5A')];
-            case 1:
-                balance = _a.sent();
-                t.true(balance.balance > 0);
-                return [4 /*yield*/, client.getBalance('3JX4UBJW463VJFBNEO2WOJFTPK2WLI5B')];
-            case 2:
-                balance = _a.sent();
-                t.true(balance.balance === 0);
-                return [2 /*return*/];
-        }
-    });
-}); });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2xpZW50LnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvbmV0d29yay9jbGllbnQuc3BlYy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxpQkEwQkc7O0FBMUJILDRDQUF1QjtBQUN2QixvREFBOEI7QUFFOUIsSUFBSSxNQUFNLEdBQUcsSUFBSSxnQkFBTSxFQUFFLENBQUM7QUFFMUIsYUFBSSxDQUFDLE1BQU0sQ0FBQzs7O29CQUNSLHFCQUFNLE1BQU0sQ0FBQyxPQUFPLENBQUMsd0JBQXdCLENBQUMsRUFBQTs7Z0JBQTlDLFNBQThDLENBQUM7Ozs7S0FDbEQsQ0FBQyxDQUFDO0FBRUgsYUFBSSxDQUFDLFVBQVUsRUFBRSxVQUFNLENBQUM7Ozs7b0JBQ1AscUJBQU0sTUFBTSxDQUFDLGNBQWMsQ0FBQyxDQUFDLENBQUMsRUFBQTs7Z0JBQXZDLE1BQU0sR0FBRyxTQUE4QjtnQkFDM0MsQ0FBQyxDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsTUFBTSxHQUFHLENBQUMsQ0FBQyxDQUFDOzs7O0tBQzdCLENBQUMsQ0FBQztBQUVILGFBQUksQ0FBQyxjQUFjLEVBQUUsVUFBTSxDQUFDOzs7O29CQUNaLHFCQUFNLE1BQU0sQ0FBQyxRQUFRLENBQUMsOENBQThDLENBQUMsRUFBQTs7Z0JBQTdFLEtBQUssR0FBRyxTQUFxRTtnQkFDakYsQ0FBQyxDQUFDLElBQUksQ0FBQyxLQUFLLElBQUksSUFBSSxDQUFDLENBQUM7Z0JBQ3RCLENBQUMsQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLEtBQUssQ0FBQyxJQUFJLENBQUMsSUFBSSxLQUFLLDhDQUE4QyxDQUFDLENBQUM7Ozs7S0FDcEYsQ0FBQyxDQUFDO0FBRUgsYUFBSSxDQUFDLGNBQWMsRUFBRSxVQUFNLENBQUM7Ozs7b0JBQ1YscUJBQU0sTUFBTSxDQUFDLFVBQVUsQ0FBQyxrQ0FBa0MsQ0FBQyxFQUFBOztnQkFBckUsT0FBTyxHQUFHLFNBQTJEO2dCQUN6RSxDQUFDLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxPQUFPLEdBQUcsQ0FBQyxDQUFDLENBQUM7Z0JBRWxCLHFCQUFNLE1BQU0sQ0FBQyxVQUFVLENBQUMsa0NBQWtDLENBQUMsRUFBQTs7Z0JBQXJFLE9BQU8sR0FBRyxTQUEyRCxDQUFDO2dCQUN0RSxDQUFDLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxPQUFPLEtBQUssQ0FBQyxDQUFDLENBQUM7Ozs7S0FDakMsQ0FBQyxDQUFDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2xpZW50LnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvbmV0d29yay9jbGllbnQuc3BlYy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxpQkE2Qkc7O0FBN0JILDRDQUF1QjtBQUN2QixvREFBOEI7QUFFOUIsSUFBSSxNQUFNLEdBQUcsSUFBSSxnQkFBTSxFQUFFLENBQUM7QUFFMUIsYUFBSSxDQUFDLE1BQU0sQ0FBQzs7O29CQUNSLHFCQUFNLE1BQU0sQ0FBQyxPQUFPLENBQUMsd0JBQXdCLENBQUMsRUFBQTs7Z0JBQTlDLFNBQThDLENBQUM7Ozs7S0FDbEQsQ0FBQyxDQUFDO0FBRUgsYUFBSSxDQUFDLFVBQVUsRUFBRSxVQUFNLENBQUM7Ozs7O2dCQUNwQixDQUFDLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxTQUFTLENBQUMsQ0FBQztnQkFFWixxQkFBTSxNQUFNLENBQUMsY0FBYyxDQUFDLENBQUMsQ0FBQyxFQUFBOztnQkFBdkMsTUFBTSxHQUFHLFNBQThCO2dCQUMzQyxDQUFDLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxNQUFNLEdBQUcsQ0FBQyxDQUFDLENBQUM7Ozs7S0FDN0IsQ0FBQyxDQUFDO0FBRUgsYUFBSSxDQUFDLGNBQWMsRUFBRSxVQUFNLENBQUM7Ozs7O2dCQUN4QixDQUFDLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxTQUFTLENBQUMsQ0FBQztnQkFFWCxxQkFBTSxNQUFNLENBQUMsVUFBVSxDQUFDLGtDQUFrQyxDQUFDLEVBQUE7O2dCQUFyRSxPQUFPLEdBQUcsU0FBMkQ7Z0JBQ3pFLENBQUMsQ0FBQyxJQUFJLENBQUMsQ0FBQyxPQUFPLENBQUMsS0FBSyxDQUFDLENBQUE7Z0JBQ3RCLENBQUMsQ0FBQyxJQUFJLENBQUMsT0FBTyxDQUFDLE9BQU8sR0FBRyxDQUFDLENBQUMsQ0FBQztnQkFFbEIscUJBQU0sTUFBTSxDQUFDLFVBQVUsQ0FBQyxrQ0FBa0MsQ0FBQyxFQUFBOztnQkFBckUsT0FBTyxHQUFHLFNBQTJELENBQUM7Z0JBQ3RFLENBQUMsQ0FBQyxJQUFJLENBQUMsT0FBTyxDQUFDLE9BQU8sR0FBRyxDQUFDLENBQUMsQ0FBQztnQkFFaEIscUJBQU0sTUFBTSxDQUFDLFFBQVEsQ0FBQyw4Q0FBOEMsQ0FBQyxFQUFBOztnQkFBN0UsS0FBSyxHQUFHLFNBQXFFO2dCQUNqRixDQUFDLENBQUMsSUFBSSxDQUFDLENBQUMsS0FBSyxDQUFDLEtBQUssQ0FBQyxDQUFDO2dCQUNyQixDQUFDLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxLQUFLLENBQUMsSUFBSSxDQUFDLElBQUksS0FBSyw4Q0FBOEMsQ0FBQyxDQUFDOzs7O0tBQ3BGLENBQUMsQ0FBQyJ9
