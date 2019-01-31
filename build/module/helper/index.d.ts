@@ -1,2 +1,3 @@
 import * as SDAGSize from './size';
-export { SDAGSize };
+import * as SDAGHash from './hash';
+export { SDAGSize, SDAGHash };

@@ -2,7 +2,7 @@ import bip39 from 'bip39';
 import mnemonic from 'bitcore-mnemonic';
 import { HDPublicKey, HDPrivateKey, PublicKey } from 'bitcore-lib';
 import crypto from 'crypto';
-import hash from './hash';
+import hash from '../helper/hash';
 import ecdsa from 'secp256k1';
 
 export default class Keyman {
