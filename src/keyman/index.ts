@@ -1,3 +1,4 @@
 import Keyman from './keyman';
+import * as SDAGHash from './hash';
 
-export { Keyman };
+export { Keyman, SDAGHash };

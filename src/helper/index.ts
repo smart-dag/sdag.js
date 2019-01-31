@@ -1,1 +1,3 @@
-export * from './size';
+import * as SDAGSize from './size';
+
+export { SDAGSize };
