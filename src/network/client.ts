@@ -2,6 +2,8 @@ import { EventEmitter } from 'events';
 import { Joint, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs } from '../types/sdag';
 import crypto from 'crypto';
 import ws from 'ws';
+import hash from '../keyman/hash';
+import * as Helper from '../helper';
 
 export default class HubClient extends EventEmitter {
 
@@ -14,7 +16,7 @@ export default class HubClient extends EventEmitter {
         try {
             return new WebSocket(address);
         } catch (error) {
-            return new ws(address);            
+            return new ws(address);
         }
     }
 
