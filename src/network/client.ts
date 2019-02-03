@@ -120,7 +120,7 @@ export default class HubClient extends EventEmitter {
 
     sendSubscribe() {
         let id = crypto.randomBytes(32).toString('hex');
-        this.sendRequest({ command: 'subscribe', params: { subscription_id: id, last_mci: 10, } });
+        this.sendRequest({ command: 'subscribe', params: { peer_id: id, last_mci: 10, } });
     }
 
     private handleJustsaying(content: IJustsayingResponse) {
