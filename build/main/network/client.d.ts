@@ -38,6 +38,7 @@ export default class HubClient extends EventEmitter {
     getBalance(address: string): Promise<Balance>;
     getTxsByAddress(address: string, num?: number): Promise<Transaction[]>;
     getJointsByMci(mci: number): Promise<Joint[]>;
+    getJointsByLevel(minLevel: number, maxLevel: number): Promise<Joint[]>;
     getProps(address: string): Promise<LightProps>;
     getInputs(address: string, amount: number, spend_all?: boolean): Promise<LightInputs>;
     postJoint(joint: object): Promise<string>;

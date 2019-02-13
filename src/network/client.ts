@@ -201,6 +201,20 @@ export default class HubClient extends EventEmitter {
         });
     }
 
+    getJointsByLevel(minLevel: number, maxLevel: number): Promise<Joint[]> {
+        if (Math.abs(maxLevel - minLevel) > 300) {
+            minLevel = maxLevel - 300;
+        }
+
+        return new Promise((resolve, reject) => {
+            this.sendRequest({ command: 'get_joints_by_level', params: { max_level: maxLevel, min_level: minLevel } }, resp => {
+                if (!resp) return reject();
+                let joints = resp.response['joints'] as Joint[];
+                resolve(joints);
+            });
+        });
+    }
+
     getProps(address: string): Promise<LightProps> {
         return new Promise<LightProps>((resolve, reject) => {
             this.sendRequest({ command: 'light/light_props', params: address }, resp => {
