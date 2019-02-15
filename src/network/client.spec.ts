@@ -13,8 +13,8 @@ test('gets mci', async t => {
     let joints = await client.getJointsByMci(1);
     t.true(joints.length > 0);
 
-    // joints = await client.getJointsByLevel(20, 50);
-    // t.true(joints.length > 0);
+    let jointsLevel = await client.getJointsByLevel(20, 50);
+    t.true(jointsLevel.length > 0);
 });
 
 test('gets balance', async t => {

@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { Joint, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs } from '../types/sdag';
+import { Joint, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointsLevelResponse, JointLevel } from '../types/sdag';
 import crypto from 'crypto';
 import ws from 'ws';
 
@@ -201,7 +201,7 @@ export default class HubClient extends EventEmitter {
         });
     }
 
-    getJointsByLevel(minLevel: number, maxLevel: number): Promise<Joint[]> {
+    getJointsByLevel(minLevel: number, maxLevel: number): Promise<JointLevel[][]> {
         if (Math.abs(maxLevel - minLevel) > 300) {
             minLevel = maxLevel - 300;
         }
@@ -209,7 +209,7 @@ export default class HubClient extends EventEmitter {
         return new Promise((resolve, reject) => {
             this.sendRequest({ command: 'get_joints_by_level', params: { max_level: maxLevel, min_level: minLevel } }, resp => {
                 if (!resp) return reject();
-                let joints = resp.response['joints'] as Joint[];
+                let joints = (resp as JointsLevelResponse).response;
                 resolve(joints);
             });
         });
