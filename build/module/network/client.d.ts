@@ -8,7 +8,7 @@ export default class HubClient extends EventEmitter {
     connected: boolean;
     private createSocket;
     private setup;
-    connect(address?: string): Promise<boolean>;
+    connect(address: string): Promise<boolean>;
     private onMessage;
     send(type: 'request' | 'justsaying' | 'response', content: any): boolean;
     sendRequest(content: IRequestContent, resolver?: (resp?: IRequestResponse) => void): string;

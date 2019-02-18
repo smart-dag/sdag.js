@@ -39,9 +39,11 @@ export default class HubClient extends EventEmitter {
         };
 
         client.onmessage = this.onMessage;
+
+        client.onerror = (err) => super.emit('error', err);
     }
 
-    async connect(address: string = undefined) {
+    async connect(address: string) {
         this.close();
 
         address = address.startsWith('ws') ? address : 'ws://' + address;
@@ -54,7 +56,7 @@ export default class HubClient extends EventEmitter {
                 clearTimeout(timeout);
                 resolve(true);
             });
-        })
+        });
     }
 
     private onMessage = (ev: MessageEvent) => {
@@ -251,6 +253,7 @@ export default class HubClient extends EventEmitter {
             this.ws.onmessage = null;
             this.ws.onopen = null;
             this.ws.onmessage = null;
+            this.ws.onerror = null;
             this.ws = null;
         } catch (error) {
 
