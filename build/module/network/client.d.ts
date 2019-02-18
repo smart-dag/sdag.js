@@ -42,5 +42,40 @@ export default class HubClient extends EventEmitter {
     getProps(address: string): Promise<LightProps>;
     getInputs(address: string, amount: number, last_stable_unit: string, spend_all?: boolean): Promise<LightInputs>;
     postJoint(joint: object): Promise<string>;
+    composeJoint(opts: {
+        from: string;
+        to: string;
+        amount: number;
+        signEcdsaPubkey: string;
+    }, signCallback: (string: any) => string): Promise<{
+        ball: any;
+        skiplist_units: any[];
+        unsigned: any;
+        unit: {
+            alt: string;
+            version: string;
+            last_ball: string;
+            last_ball_unit: string;
+            witness_list_unit: string;
+            parent_units: string[];
+            authors: any[];
+            messages: {
+                app: string;
+                payload_location: string;
+                payload_hash: string;
+                payload: {
+                    inputs: import("../types/sdag").Input[];
+                    outputs: {
+                        address: string;
+                        amount: number;
+                    }[];
+                };
+            }[];
+            headers_commission: number;
+            payload_commission: number;
+            timestamp: number;
+            unit: any;
+        };
+    }>;
     close(): void;
 }

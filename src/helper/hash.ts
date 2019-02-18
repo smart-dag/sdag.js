@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import chash from './chash';
 
-function getSourceString(obj) {
+export function getSourceString(obj) {
     var arrComponents = [];
 
     function extractComponents(variable) {
@@ -49,11 +49,11 @@ function getSourceString(obj) {
     return arrComponents.join("\x00");
 }
 
-function getChash160(obj) {
+export function getChash160(obj) {
     return chash.getChash160(getSourceString(obj));
 }
 
-function getBase64Hash(obj) {
+export function getBase64Hash(obj) {
     try {
         if (typeof (obj) == "string")
             var objUnit = JSON.parse(obj);
@@ -91,7 +91,7 @@ function getUnitContentHash(objUnit) {
     return getBase64Hash(getNakedUnit(objUnit));
 }
 
-function getUnitHash(objUnit) {
+export function getUnitHash(objUnit) {
     try {
         if (typeof (objUnit) == "string")
             var objUnit = JSON.parse(objUnit);
@@ -123,7 +123,7 @@ function getUnitHash(objUnit) {
 
 }
 
-function getUnitHashToSign(objUnit) {
+export function getUnitHashToSign(objUnit) {
     try {
         if (typeof (objUnit) == "string")
             var objNakedUnit = getNakedUnit(JSON.parse(objUnit));

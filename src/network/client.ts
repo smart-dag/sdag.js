@@ -2,6 +2,7 @@ import { EventEmitter } from 'events';
 import { Joint, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointsLevelResponse, JointLevel } from '../types/sdag';
 import crypto from 'crypto';
 import ws from 'ws';
+import { SDAGSize, SDAGHash } from '..';
 
 export default class HubClient extends EventEmitter {
 
@@ -242,6 +243,87 @@ export default class HubClient extends EventEmitter {
                 resolve(resp.response);
             });
         });
+    }
+
+
+    async composeJoint(opts: { from: string, to: string, amount: number, signEcdsaPubkey: string }, signCallback: (string) => string) {
+
+        let props = await this.getProps(opts.from);
+        let inputs = await this.getInputs(opts.from, 0, props.last_ball_unit);
+
+        let outputs = [
+            {
+                address: opts.from,
+                amount: 0
+            },
+            {
+                address: opts.to,
+                amount: opts.amount * 1000000,
+            }
+        ];
+
+
+        let authors: any[] = [{
+            address: opts.from,
+            authentifiers: {
+                r: '-'.repeat(88),
+            },
+        }];
+
+        if (!props.has_definition)
+            authors[0].definition = ['sig', { pubkey: opts.signEcdsaPubkey }];
+
+        let payment_message = {
+            app: "payment",
+            payload_location: "inline",
+            payload_hash: "-".repeat(44),
+            payload: {
+                inputs: inputs.inputs,
+                outputs: outputs,
+            },
+        };
+
+        let unit = {
+            alt: '1',
+            version: '1.0',
+            last_ball: props.last_ball,
+            last_ball_unit: props.last_ball_unit,
+            witness_list_unit: props.witness_list_unit,
+            parent_units: props.parent_units,
+            authors,
+            messages: [payment_message],
+            headers_commission: 0,
+            payload_commission: 0,
+            timestamp: Number.parseInt(<any>(Date.now() / 1000)),
+            unit: undefined,
+        };
+
+        unit.headers_commission = SDAGSize.getHeadersSize(Object.assign({}, unit));
+        unit.payload_commission = SDAGSize.getTotalPayloadSize(Object.assign({}, unit));
+
+        let change = inputs.amount - unit.headers_commission - unit.payload_commission - (opts.amount * 1000000);
+
+        if (change < 0) return null;
+
+        outputs[0].amount = change;
+        payment_message.payload.outputs = outputs.sort((a, b) => a.address > b.address ? 1 : -1);
+        payment_message.payload_hash = SDAGHash.getBase64Hash(payment_message.payload);
+
+        let unitHash = SDAGHash.getUnitHashToSign(JSON.parse(JSON.stringify(unit)));
+        unit.authors.forEach(author => {
+            author.authentifiers.r = signCallback(unitHash); //this.keyman.sign(unitHash, 0)
+        });
+
+        unit.unit = SDAGHash.getUnitHash(JSON.parse(JSON.stringify(unit)));
+
+        let joint = {
+            ball: undefined,
+            skiplist_units: [],
+            unsigned: undefined,
+            unit,
+        }
+
+        return joint;
     }
 
     close() {
