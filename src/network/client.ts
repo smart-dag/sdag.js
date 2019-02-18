@@ -226,9 +226,9 @@ export default class HubClient extends EventEmitter {
         });
     }
 
-    getInputs(address: string, amount: number, spend_all = false): Promise<LightInputs> {
+    async getInputs(address: string, amount: number, last_stable_unit: string, spend_all = false): Promise<LightInputs> {
         return new Promise((resolve, reject) => {
-            this.sendRequest({ command: 'light/inputs', params: { paid_address: address, total_amount: amount * 1000000 + 1000, is_spend_all: spend_all } }, resp => {
+            this.sendRequest({ command: 'light/inputs', params: { paid_address: address, total_amount: amount * 1000000 + 1000, is_spend_all: spend_all, last_stable_unit } }, resp => {
                 if (!resp) return reject();
                 resolve(resp.response as LightInputs);
             });

@@ -40,7 +40,7 @@ export default class HubClient extends EventEmitter {
     getJointsByMci(mci: number): Promise<Joint[]>;
     getJointsByLevel(minLevel: number, maxLevel: number): Promise<JointLevel[][]>;
     getProps(address: string): Promise<LightProps>;
-    getInputs(address: string, amount: number, spend_all?: boolean): Promise<LightInputs>;
+    getInputs(address: string, amount: number, last_stable_unit: string, spend_all?: boolean): Promise<LightInputs>;
     postJoint(joint: object): Promise<string>;
     close(): void;
 }
