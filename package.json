@@ -55,28 +55,28 @@
     "bitcore-mnemonic": "^1.7.0",
     "secp256k1": "^3.6.2",
     "thirty-two": "^1.0.2",
-    "ws": "^6.1.3"
+    "ws": "^6.1.4"
   },
   "devDependencies": {
-    "@types/bip39": "^2.4.1",
+    "@types/bip39": "^2.4.2",
     "@types/bitcore-lib": "^0.15.1",
     "@types/secp256k1": "^3.5.0",
     "@types/ws": "^6.0.1",
     "ava": "1.0.0-beta.7",
-    "codecov": "^3.1.0",
+    "codecov": "^3.2.0",
     "cz-conventional-changelog": "^2.1.0",
     "gh-pages": "^2.0.1",
     "npm-run-all": "^4.1.5",
-    "nyc": "^13.1.0",
+    "nyc": "^13.3.0",
     "opn-cli": "^4.0.0",
-    "prettier": "^1.15.2",
+    "prettier": "^1.16.4",
     "standard-version": "^4.4.0",
     "trash-cli": "^1.4.0",
     "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.17.0",
-    "tslint-immutable": "^5.0.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-immutable": "^5.2.0",
     "typedoc": "^0.13.0",
-    "typescript": "^3.1.6"
+    "typescript": "^3.3.3"
   },
   "ava": {
     "failFast": true,
