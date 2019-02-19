@@ -42,12 +42,13 @@ export default class HubClient extends EventEmitter {
     getProps(address: string): Promise<LightProps>;
     getInputs(address: string, amount: number, last_stable_unit: string, spend_all?: boolean): Promise<LightInputs>;
     postJoint(joint: object): Promise<string>;
+    getFreeJoints(): Promise<Joint[]>;
     composeJoint(opts: {
         from: string;
         to: string;
         amount: number;
         signEcdsaPubkey: string;
-    }, signCallback: (string: any) => string): Promise<{
+    }, signCallback: (hash: string) => string): Promise<{
         ball: any;
         skiplist_units: any[];
         unsigned: any;

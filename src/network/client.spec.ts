@@ -7,6 +7,11 @@ test.before(async () => {
     await client.connect('ws://10.168.3.131:6635');
 });
 
+test('gets free joints', async t => {
+    let joints = await client.getFreeJoints();
+    t.true(joints.length > 0);
+});
+
 test('gets mci', async t => {
     t.true(client.connected);
 

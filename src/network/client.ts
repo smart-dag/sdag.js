@@ -3,6 +3,8 @@ import { Joint, IRequestResponse, IRequestContent, IJustsayingResponse, Property
 import crypto from 'crypto';
 import ws from 'ws';
 import { SDAGSize, SDAGHash } from '..';
+import { resolve } from 'url';
+import { rejects } from 'assert';
 
 export default class HubClient extends EventEmitter {
 
@@ -245,8 +247,16 @@ export default class HubClient extends EventEmitter {
         });
     }
 
+    async getFreeJoints(): Promise<Joint[]> {
+        return new Promise((resolve, reject) => {
+            this.sendRequest({ command: 'get_free_joints' }, resp => {
+                if (!resp) reject();
+                resolve(resp.response);
+            });
+        });
+    }
 
-    async composeJoint(opts: { from: string, to: string, amount: number, signEcdsaPubkey: string }, signCallback: (string) => string) {
+    async composeJoint(opts: { from: string, to: string, amount: number, signEcdsaPubkey: string }, signCallback: (hash: string) => string) {
 
         let props = await this.getProps(opts.from);
         let inputs = await this.getInputs(opts.from, 0, props.last_ball_unit);
@@ -311,7 +321,8 @@ export default class HubClient extends EventEmitter {
 
         let unitHash = SDAGHash.getUnitHashToSign(JSON.parse(JSON.stringify(unit)));
         unit.authors.forEach(author => {
-            author.authentifiers.r = signCallback(unitHash); //this.keyman.sign(unitHash, 0)
+            if (unitHash == 0) throw Error('invalid unit hash');
+            author.authentifiers.r = signCallback(unitHash as string); //this.keyman.sign(unitHash, 0)
         });
 
         unit.unit = SDAGHash.getUnitHash(JSON.parse(JSON.stringify(unit)));
