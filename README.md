@@ -1,3 +1,7 @@
-# sdag.js
+# SDAG.js
 
-SDAG for javascript
+Javascript SDK
+
+```
+npm install sdag.js
+```

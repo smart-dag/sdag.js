@@ -1,12 +1,12 @@
 {
   "name": "sdag.js",
-  "version": "1.0.0",
-  "description": "SDAG for javascript",
+  "version": "0.1.0",
+  "description": "SDAG.js",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
   "repository": "https://github.com/UnsignedInt8/sdag.js",
-  "license": "MIT",
+  "license": "GPL-3",
   "keywords": [],
   "scripts": {
     "describe": "npm-scripts-info",
