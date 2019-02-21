@@ -78,5 +78,11 @@ export default class HubClient extends EventEmitter {
             unit: any;
         };
     }>;
+    transfer(opts: {
+        from: string;
+        to: string;
+        amount: number;
+        signEcdsaPubkey: string;
+    }, signCallback: (hash: string) => string): Promise<string>;
     close(): void;
 }

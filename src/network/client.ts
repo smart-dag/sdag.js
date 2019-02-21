@@ -337,6 +337,11 @@ export default class HubClient extends EventEmitter {
         return joint;
     }
 
+    async transfer(opts: { from: string, to: string, amount: number, signEcdsaPubkey: string }, signCallback: (hash: string) => string) {
+        let joint = await this.composeJoint(opts, signCallback);
+        return await this.postJoint(joint);
+    }
+
     close() {
         if (!this.ws) return;
 
