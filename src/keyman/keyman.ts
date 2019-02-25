@@ -64,7 +64,7 @@ export default class Keyman {
         try {
             let buf_to_sign = new Buffer(b64_hash, "base64");
             let xPrivKey = this.mainXprivKey;
-            let privateKey = xPrivKey.derive(`m/${index}`)['privateKey'];
+            let privateKey = xPrivKey.derive(`m/0/${index}`)['privateKey'];
             let privKeyBuf = privateKey.bn.toBuffer({ size: 32 });
 
             let res = ecdsa.sign(buf_to_sign, privKeyBuf);
