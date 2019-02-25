@@ -83,6 +83,38 @@ export default class HubClient extends EventEmitter {
         to: string;
         amount: number;
         signEcdsaPubkey: string;
-    }, signCallback: (hash: string) => string): Promise<string>;
+    }, signCallback: (hash: string) => string): Promise<{
+        joint: {
+            ball: any;
+            skiplist_units: any[];
+            unsigned: any;
+            unit: {
+                alt: string;
+                version: string;
+                last_ball: string;
+                last_ball_unit: string;
+                witness_list_unit: string;
+                parent_units: string[];
+                authors: any[];
+                messages: {
+                    app: string;
+                    payload_location: string;
+                    payload_hash: string;
+                    payload: {
+                        inputs: import("../types/sdag").Input[];
+                        outputs: {
+                            address: string;
+                            amount: number;
+                        }[];
+                    };
+                }[];
+                headers_commission: number;
+                payload_commission: number;
+                timestamp: number;
+                unit: any;
+            };
+        };
+        result: string;
+    }>;
     close(): void;
 }
