@@ -22,7 +22,7 @@ import { HubClient } from 'sdag.js';
 let client = new HubClient();
 ```
 
-| Method | Description | Return |   |   |
+| Method | Description | Return | 
 |---|---|---|---|---|
 |  connect | Connect to a hub | boolean |   |   |
 | getJoint  | Get a joint from hub  | PropertyJoint  |   |   |
@@ -50,7 +50,7 @@ await client.transfer({ to: 'To', from: 'From', amount: 2, ecdsaPubkey: man.main
 
 ```
 
-| Method | Description | Return |   |   |
+| Method | Description | Return |
 |---|---|---|---|---|
 |  constructor | The mnemonic code is required | 
 | genAddress  | Generate a address by index  | string |
