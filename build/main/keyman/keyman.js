@@ -77,7 +77,7 @@ var Keyman = /** @class */ (function () {
         }
     };
     /**
-     * 生成ecdsa签名公钥
+     * Gen ecdsa pub key
      * @param {number} index
      */
     Keyman.prototype.ecdsaPubkey = function (index) {

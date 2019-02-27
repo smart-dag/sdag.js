@@ -88,7 +88,7 @@ export default class Keyman {
     }
 
     /**
-     * 生成ecdsa签名公钥
+     * Gen ecdsa pub key
      * @param {number} index 
      */
     ecdsaPubkey(index: number) {

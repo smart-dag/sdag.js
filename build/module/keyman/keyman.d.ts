@@ -12,7 +12,7 @@ export default class Keyman {
     sign(b64_hash: string, index?: number): string;
     verify(b64_hash: string, sig: string, pub_key: string): boolean;
     /**
-     * 生成ecdsa签名公钥
+     * Gen ecdsa pub key
      * @param {number} index
      */
     ecdsaPubkey(index: number): string;
