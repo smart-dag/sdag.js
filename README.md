@@ -24,9 +24,9 @@ let client = new HubClient();
 
 | Method | Description | Return | 
 |---|---|---|---|---|
-|  connect | Connect to a hub | boolean |   |   |
-| getJoint  | Get a joint from hub  | PropertyJoint  |   |   |
-|  getNetworkInfo | Get the latest net info  | NetworkInfo  |   |   |
+|  connect | Connect to a hub | boolean |  
+| getJoint  | Get a joint from hub  | PropertyJoint  |   
+|  getNetworkInfo | Get the latest net info  | NetworkInfo  | 
 | getBalance | Query the balance of specified address | Balance |
 | getTxsByAddress | Query history txs of specified address | Transaction[] |
 | getJointsByMci | Query joints by mci | Joint[] |
