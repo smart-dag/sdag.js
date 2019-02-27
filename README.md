@@ -23,7 +23,7 @@ let client = new HubClient();
 ```
 
 | Method | Description | Return | 
-|---|---|---|---|---|
+|---|---|---|
 |  connect | Connect to a hub | boolean |  
 | getJoint  | Get a joint from hub  | PropertyJoint  |   
 |  getNetworkInfo | Get the latest net info  | NetworkInfo  | 
@@ -51,10 +51,10 @@ await client.transfer({ to: 'To', from: 'From', amount: 2, ecdsaPubkey: man.main
 ```
 
 | Method | Description | Return |
-|---|---|---|---|---|
-|  constructor | The mnemonic code is required | 
+|---|---|---|
+|  constructor | The mnemonic code is required  | |
 | genAddress  | Generate a address by index  | string |
-|  sign | Sign unit hash when you transfer assets  | string  |  
+|  sign | Sign unit hash when you transfer assets  | string | 
 | verify | Verify a signed string | boolean |
 | ecdsaPubkey | Gen a ecdsa pub key by index | string |
 
