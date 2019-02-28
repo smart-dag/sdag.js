@@ -5,6 +5,7 @@ export default class HubClient extends EventEmitter {
     private ws;
     private address;
     private pendingRequests;
+    private tag;
     connected: boolean;
     private createSocket;
     private setup;

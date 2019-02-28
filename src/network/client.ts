@@ -11,6 +11,7 @@ export default class HubClient extends EventEmitter {
     private ws: WebSocket | ws;
     private address: string;
     private pendingRequests = new Map<string, (resp?: IRequestResponse) => void>();
+    private tag = 0;
     connected = false;
 
     private createSocket(address: string) {
@@ -89,7 +90,7 @@ export default class HubClient extends EventEmitter {
     }
 
     sendRequest(content: IRequestContent, resolver?: (resp?: IRequestResponse) => void): string {
-        let rid: string = content.tag = content.tag || Date.now().toString();
+        let rid: string = content.tag = content.tag || `${Date.now()}_${this.tag++}`;
         this.send('request', content);
 
         if (resolver) {
@@ -340,7 +341,7 @@ export default class HubClient extends EventEmitter {
     async transfer(opts: { from: string, to: string, amount: number, signEcdsaPubkey: string }, signCallback: (hash: string) => string) {
         let joint = await this.composeJoint(opts, signCallback);
         let result = await this.postJoint(joint);
-        
+
         return {
             joint,
             result,
