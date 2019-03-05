@@ -180,6 +180,16 @@ export default class HubClient extends EventEmitter {
         });
     }
 
+    getNetState(): Promise<NetState> {
+        return new Promise((resolve, reject) => {
+            this.sendRequest({ command: 'net_state' }, resp => {
+                if (!resp) return reject();
+                let state = resp.response;
+                resolve(state);
+            });
+        });
+    }
+
     getBalance(address: string): Promise<Balance> {
         return new Promise((resolve, reject) => {
             this.sendRequest({ command: 'get_balance', params: address }, (resp) => {

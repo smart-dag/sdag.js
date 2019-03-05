@@ -4,7 +4,7 @@ import Client from './client';
 let client = new Client();
 
 test.before(async () => {
-    await client.connect('ws://10.168.3.131:6635');
+    await client.connect('ws://10.168.3.131:6615');
 });
 
 test('gets free joints', async t => {
@@ -20,6 +20,7 @@ test('gets mci', async t => {
 
     let jointsLevel = await client.getJointsByLevel(20, 50);
     t.true(jointsLevel.length > 0);
+
 });
 
 test('gets balance', async t => {
