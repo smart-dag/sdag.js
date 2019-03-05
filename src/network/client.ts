@@ -3,8 +3,6 @@ import { Joint, IRequestResponse, IRequestContent, IJustsayingResponse, Property
 import crypto from 'crypto';
 import ws from 'ws';
 import { SDAGSize, SDAGHash } from '..';
-import { resolve } from 'url';
-import { rejects } from 'assert';
 
 export default class HubClient extends EventEmitter {
 
@@ -44,11 +42,15 @@ export default class HubClient extends EventEmitter {
 
         client.onmessage = this.onMessage;
 
-        client.onerror = (err) => super.emit('error', err);
+        client.onerror = (err) => super.emit('error', err.message);
     }
 
     async connect(address: string) {
         this.close();
+
+        if (!address) {
+            throw Error('empty address');
+        }
 
         address = address.startsWith('ws') ? address : 'ws://' + address;
         this.address = address;
