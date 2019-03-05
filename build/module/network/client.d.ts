@@ -51,9 +51,7 @@ export default class HubClient extends EventEmitter {
         signEcdsaPubkey: string;
         msg?: string;
     }, signCallback: (hash: string) => string): Promise<{
-        ball: any;
         skiplist_units: any[];
-        unsigned: any;
         unit: {
             alt: string;
             version: string;
@@ -86,10 +84,9 @@ export default class HubClient extends EventEmitter {
         amount: number;
         signEcdsaPubkey: string;
     }, signCallback: (hash: string) => string): Promise<{
+        hash: any;
         joint: {
-            ball: any;
             skiplist_units: any[];
-            unsigned: any;
             unit: {
                 alt: string;
                 version: string;

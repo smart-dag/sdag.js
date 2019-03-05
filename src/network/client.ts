@@ -3,6 +3,7 @@ import { Joint, IRequestResponse, IRequestContent, IJustsayingResponse, Property
 import crypto from 'crypto';
 import ws from 'ws';
 import { SDAGSize, SDAGHash } from '..';
+import { join } from 'path';
 
 export default class HubClient extends EventEmitter {
 
@@ -343,9 +344,7 @@ export default class HubClient extends EventEmitter {
         unit.unit = SDAGHash.getUnitHash(JSON.parse(JSON.stringify(unit)));
 
         let joint = {
-            ball: undefined,
             skiplist_units: [],
-            unsigned: undefined,
             unit,
         }
 
@@ -357,6 +356,7 @@ export default class HubClient extends EventEmitter {
         let result = await this.postJoint(joint);
 
         return {
+            hash: joint.unit.unit,
             joint,
             result,
         };
