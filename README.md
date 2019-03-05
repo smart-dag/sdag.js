@@ -59,3 +59,5 @@ await client.transfer({ to: 'To', from: 'From', amount: 2, ecdsaPubkey: man.main
 | ecdsaPubkey | Gen a ecdsa pub key by index | string |
 
 ## License
+
+GPL-3.0

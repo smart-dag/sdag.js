@@ -335,7 +335,7 @@ export default class HubClient extends EventEmitter {
         let unitHash = SDAGHash.getUnitHashToSign(JSON.parse(JSON.stringify(unit)));
         unit.authors.forEach(author => {
             if (unitHash == 0) throw Error('invalid unit hash');
-            author.authentifiers.r = signCallback(unitHash as string); //this.keyman.sign(unitHash, 0)
+            author.authentifiers.r = signCallback(unitHash as string);
         });
 
         unit.unit = SDAGHash.getUnitHash(JSON.parse(JSON.stringify(unit)));
