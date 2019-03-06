@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from 'events';
-import { Joint, IRequestResponse, IRequestContent, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointLevel } from '../types/sdag';
+import { Joint, NetState, IRequestResponse, IRequestContent, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointLevel } from '../types/sdag';
 export default class HubClient extends EventEmitter {
     private ws;
     private address;

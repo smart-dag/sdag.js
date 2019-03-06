@@ -1,4 +1,4 @@
-interface NetState {
+export interface NetState {
     in_bounds: Inbound[];
     out_bounds: any[];
 }
@@ -8,3 +8,4 @@ interface Inbound {
     peer_addr: string;
     peer_id: string;
 }
+export {};

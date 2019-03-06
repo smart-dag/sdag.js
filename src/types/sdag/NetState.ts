@@ -1,4 +1,4 @@
-interface NetState {
+export interface NetState {
     in_bounds: Inbound[];
     out_bounds: any[];
 }

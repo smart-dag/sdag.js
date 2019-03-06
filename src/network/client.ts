@@ -1,9 +1,8 @@
 import { EventEmitter } from 'events';
-import { Joint, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointsLevelResponse, JointLevel } from '../types/sdag';
+import { Joint, NetState, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointsLevelResponse, JointLevel } from '../types/sdag';
 import crypto from 'crypto';
 import ws from 'ws';
 import { SDAGSize, SDAGHash } from '..';
-import { join } from 'path';
 
 export default class HubClient extends EventEmitter {
 

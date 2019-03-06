@@ -5,3 +5,4 @@ export * from './NetworkInfo';
 export * from './LightInputs';
 export * from './LightProps';
 export * from './JointLevel';
+export * from './NetState';
