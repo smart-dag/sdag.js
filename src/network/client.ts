@@ -272,7 +272,7 @@ export default class HubClient extends EventEmitter {
     async composeJoint(opts: { from: string, to: string, amount: number, signEcdsaPubkey: string, msg?: string }, signCallback: (hash: string) => string) {
 
         let props = await this.getProps(opts.from);
-        let inputs = await this.getInputs(opts.from, 0, props.last_ball_unit);
+        let inputs = await this.getInputs(opts.from, opts.amount, props.last_ball_unit);
 
         let outputs = [
             {
@@ -363,7 +363,7 @@ export default class HubClient extends EventEmitter {
     async transfer(opts: { from: string, to: string, amount: number, signEcdsaPubkey: string, msg?: string }, signCallback: (hash: string) => string) {
         let joint = await this.composeJoint(opts, signCallback);
         let result = await this.postJoint(joint);
-
+        
         return {
             hash: joint.unit.unit,
             joint,
