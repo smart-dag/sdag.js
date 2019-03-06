@@ -1,6 +1,6 @@
 {
   "name": "sdag.js",
-  "version": "0.1.9",
+  "version": "0.1.8",
   "description": "SDAG.js",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -72,11 +72,11 @@
     "prettier": "^1.16.4",
     "standard-version": "^4.4.0",
     "trash-cli": "^1.4.0",
-    "tslint": "^5.11.0",
+    "tslint": "^5.13.1",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-immutable": "^5.2.0",
+    "tslint-immutable": "^5.3.0",
     "typedoc": "^0.13.0",
-    "typescript": "^3.3.3"
+    "typescript": "^3.3.3333"
   },
   "ava": {
     "failFast": true,
