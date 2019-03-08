@@ -22,7 +22,7 @@ test('gets mci', async t => {
     t.true(jointsLevel.length > 0);
 
     let statistics = await client.getNetStatistics();
-    t.deepEqual('', JSON.stringify(statistics))
+    t.true(statistics != null);
 });
 
 test('gets balance', async t => {
@@ -30,7 +30,7 @@ test('gets balance', async t => {
 
     let balance = await client.getBalance('KOQXPPXPNJL5RYI4JO37HEBDTMYB7BGT');
     t.true(!balance.error)
-    t.true(balance.balance > 0);
+    t.true(balance.balance >= 0);
 
     // balance = await client.getBalance('WUUWY32RQTXHSIYIDBPUW7AOEEAFKQOH');
     // t.true(balance.balance > 0);
