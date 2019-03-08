@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from 'events';
-import { Joint, NetState, IRequestResponse, IRequestContent, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointLevel } from '../types/sdag';
+import { Joint, NetState, NetStatistics, IRequestResponse, IRequestContent, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointLevel } from '../types/sdag';
 export default class HubClient extends EventEmitter {
     private ws;
     private address;
@@ -37,6 +37,7 @@ export default class HubClient extends EventEmitter {
     getJoint(hash: string): Promise<PropertyJoint>;
     getNetworkInfo(): Promise<NetworkInfo>;
     getNetState(): Promise<NetState>;
+    getNetStatistics(): Promise<NetStatistics>;
     getBalance(address: string): Promise<Balance>;
     getTxsByAddress(address: string, num?: number): Promise<Transaction[]>;
     getJointsByMci(mci: number): Promise<Joint[]>;

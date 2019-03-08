@@ -1,8 +1,9 @@
 import { EventEmitter } from 'events';
-import { Joint, NetState, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointsLevelResponse, JointLevel } from '../types/sdag';
+import { Joint, NetState, NetStatistics, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointsLevelResponse, JointLevel } from '../types/sdag';
 import crypto from 'crypto';
 import ws from 'ws';
 import { SDAGSize, SDAGHash } from '..';
+import { rejects } from 'assert';
 
 export default class HubClient extends EventEmitter {
 
@@ -189,6 +190,16 @@ export default class HubClient extends EventEmitter {
         });
     }
 
+    getNetStatistics(): Promise<NetStatistics> {
+        return new Promise((resolve, reject) => {
+            this.sendRequest({ command: 'net_statistics' }, resp => {
+                if (!resp) return reject();
+                let statistics = resp.response;
+                resolve(statistics);
+            });
+        });
+    }
+
     getBalance(address: string): Promise<Balance> {
         return new Promise((resolve, reject) => {
             this.sendRequest({ command: 'get_balance', params: address }, (resp) => {
@@ -363,7 +374,7 @@ export default class HubClient extends EventEmitter {
     async transfer(opts: { from: string, to: string, amount: number, signEcdsaPubkey: string, msg?: string }, signCallback: (hash: string) => string) {
         let joint = await this.composeJoint(opts, signCallback);
         let result = await this.postJoint(joint);
-        
+
         return {
             hash: joint.unit.unit,
             joint,

@@ -21,6 +21,8 @@ test('gets mci', async t => {
     let jointsLevel = await client.getJointsByLevel(20, 50);
     t.true(jointsLevel.length > 0);
 
+    let statistics = await client.getNetStatistics();
+    t.deepEqual('', JSON.stringify(statistics))
 });
 
 test('gets balance', async t => {
