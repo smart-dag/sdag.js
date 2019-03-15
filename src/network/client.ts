@@ -36,9 +36,11 @@ export default class HubClient extends EventEmitter {
             this.sendSubscribe();
             this.connected = true;
             heartbeatTimer = setInterval(() => this.sendHeartbeat(), 3000);
-            super.emit('connected');
 
-            if (onOpen) onOpen();
+            setTimeout(() => {
+                super.emit('connected');
+                if (onOpen) onOpen();
+            }, 500);
         };
 
         client.onmessage = this.onMessage;
