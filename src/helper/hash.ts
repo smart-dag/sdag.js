@@ -69,7 +69,7 @@ export function getBase64Hash(obj) {
 }
 
 export function base64HashString(str: string) {
-    return crypto.createHash('sha256').update(str, 'utf8').digest('base64');
+    return crypto.createHash('sha256').update(getSourceString(str), 'utf8').digest('base64');
 }
 
 function getNakedUnit(objUnit) {
