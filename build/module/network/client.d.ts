@@ -118,5 +118,6 @@ export default class HubClient extends EventEmitter {
         };
         result: string;
     }>;
+    getTps(): Promise<any>;
     close(): void;
 }
