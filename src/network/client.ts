@@ -332,6 +332,18 @@ export default class HubClient extends EventEmitter {
             unit: undefined,
         };
 
+        if (opts.msg) {
+            let txt_message = <any>{
+                app: 'text',
+                payload_location: 'inline',
+                payload_hash: "-".repeat(44),
+                payload: opts.msg,
+            }
+
+            txt_message.payload_hash = SDAGHash.base64HashString(txt_message.payload);
+            unit.messages.unshift(txt_message);
+        }
+
         unit.headers_commission = SDAGSize.getHeadersSize(Object.assign({}, unit));
         unit.payload_commission = SDAGSize.getTotalPayloadSize(Object.assign({}, unit));
 
@@ -343,17 +355,6 @@ export default class HubClient extends EventEmitter {
         payment_message.payload.outputs = outputs.sort((a, b) => a.address > b.address ? 1 : -1);
         payment_message.payload_hash = SDAGHash.getBase64Hash(payment_message.payload);
 
-        if (opts.msg) {
-            let txt_message = <any>{
-                app: 'text',
-                payload_location: 'inline',
-                payload_hash: "-".repeat(44),
-                payload: opts.msg,
-            }
-
-            txt_message.payload_hash = SDAGHash.base64HashString(txt_message.payload);
-            unit.messages.push(txt_message);
-        }
 
         let unitHash = SDAGHash.getUnitHashToSign(JSON.parse(JSON.stringify(unit)));
         unit.authors.forEach(author => {
