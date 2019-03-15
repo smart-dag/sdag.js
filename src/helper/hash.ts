@@ -68,6 +68,10 @@ export function getBase64Hash(obj) {
     }
 }
 
+export function base64HashString(str: string) {
+    return crypto.createHash('sha256').update(str).digest('base64');
+}
+
 function getNakedUnit(objUnit) {
     var objNakedUnit = objUnit;
     delete objNakedUnit.unit;
@@ -168,5 +172,6 @@ export default {
     getUnitHashToSign,
     getUnitHash,
     getDeviceAddress,
-    getDeviceMessageHashToSign
+    getDeviceMessageHashToSign,
+    base64HashString
 };

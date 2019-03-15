@@ -1,6 +1,7 @@
 export declare function getSourceString(obj: any): string;
 export declare function getChash160(obj: any): any;
 export declare function getBase64Hash(obj: any): string;
+export declare function base64HashString(str: string): string;
 export declare function getUnitHash(objUnit: any): string | 0;
 export declare function getUnitHashToSign(objUnit: any): string | 0;
 declare function getDeviceAddress(b64_pubkey: any): string;
@@ -13,5 +14,6 @@ declare const _default: {
     getUnitHash: typeof getUnitHash;
     getDeviceAddress: typeof getDeviceAddress;
     getDeviceMessageHashToSign: typeof getDeviceMessageHashToSign;
+    base64HashString: typeof base64HashString;
 };
 export default _default;

@@ -351,7 +351,7 @@ export default class HubClient extends EventEmitter {
                 payload: opts.msg,
             }
 
-            txt_message.payload_hash = SDAGHash.getBase64Hash(txt_message.payload);
+            txt_message.payload_hash = SDAGHash.base64HashString(txt_message.payload);
             unit.messages.push(txt_message);
         }
 
