@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import base32 from 'thirty-two';
 
-const PI = "14159265358979323846264338327950288419716939937510"; //'71828182845904523536028747135266249775724909369995'
+const PI = "71828182845904523536028747135266249775724909369995"; //'71828182845904523536028747135266249775724909369995'
 const zeroString = "00000000";
 const arrRelativeOffsets = PI.split("");
 
@@ -30,8 +30,8 @@ function calcOffsets(chash_length) {
         index++;
     }
 
-    if (index != 32)
-        throw "wrong number of checksum bits";
+    // if (index != 32)
+    //     throw "wrong number of checksum bits";
 
     return arrOffsets;
 }
