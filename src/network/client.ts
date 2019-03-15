@@ -383,6 +383,15 @@ export default class HubClient extends EventEmitter {
         };
     }
 
+    async getTps(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.sendRequest({ command: 'tps', }, resp => {
+                if (!resp) reject();
+                resolve(resp.response);
+            });
+        });
+    }
+
     close() {
         if (!this.ws) return;
 
