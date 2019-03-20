@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { Joint, NetState, NetStatistics, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointsLevelResponse, JointLevel } from '../types/sdag';
+import { Joint, NetState, Tps, NetStatistics, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointsLevelResponse, JointLevel } from '../types/sdag';
 import crypto from 'crypto';
 import ws from 'ws';
 import { SDAGSize, SDAGHash } from '..';
@@ -385,9 +385,9 @@ export default class HubClient extends EventEmitter {
         };
     }
 
-    async getTps(): Promise<any> {
+    async getTps(): Promise<Tps> {
         return new Promise((resolve, reject) => {
-            this.sendRequest({ command: 'tps', }, resp => {
+            this.sendRequest({ command: 'get_tps', }, resp => {
                 if (!resp) reject();
                 resolve(resp.response);
             });
