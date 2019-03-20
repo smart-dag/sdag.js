@@ -1,6 +1,6 @@
 {
   "name": "sdag.js",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "SDAG.js",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -55,7 +55,7 @@
     "bitcore-mnemonic": "^1.7.0",
     "secp256k1": "^3.6.2",
     "thirty-two": "^1.0.2",
-    "ws": "^6.1.4"
+    "ws": "^6.2.0"
   },
   "devDependencies": {
     "@types/bip39": "^2.4.2",
@@ -72,11 +72,11 @@
     "prettier": "^1.16.4",
     "standard-version": "^4.4.0",
     "trash-cli": "^1.4.0",
-    "tslint": "^5.13.1",
+    "tslint": "^5.14.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-immutable": "^5.3.0",
+    "tslint-immutable": "^5.4.0",
     "typedoc": "^0.13.0",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.4000"
   },
   "ava": {
     "failFast": true,
