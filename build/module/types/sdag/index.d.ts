@@ -7,3 +7,5 @@ export * from './LightProps';
 export * from './JointLevel';
 export * from './NetState';
 export * from './NetStatistics';
+export * from './Tps';
+export * from './NotifyMessage';

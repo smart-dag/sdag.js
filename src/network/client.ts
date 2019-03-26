@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { Joint, NetState, Tps, NetStatistics, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointsLevelResponse, JointLevel } from '../types/sdag';
+import { Joint, NetState, Tps, NetStatistics, NotifyMessage, IRequestResponse, IRequestContent, IJustsayingResponse, PropertyJoint, Transaction, Balance, NetworkInfo, LightProps, LightInputs, JointsLevelResponse, JointLevel } from '../types/sdag';
 import crypto from 'crypto';
 import ws from 'ws';
 import { SDAGSize, SDAGHash } from '..';
@@ -135,8 +135,14 @@ export default class HubClient extends EventEmitter {
     }
 
     private handleJustsaying(content: IJustsayingResponse) {
-        if (content.subject === 'joint') {
-            this.emit('joint', content.body as Joint);
+        switch (content.subject) {
+            case 'joint':
+                this.emit('joint', content.body as Joint);
+                break;
+
+            case 'NotifyMessage':
+                this.emit('NotifyMessage', content.body as NotifyMessage);
+                break;
         }
     }
 
@@ -392,6 +398,11 @@ export default class HubClient extends EventEmitter {
                 resolve(resp.response);
             });
         });
+    }
+
+    watch(addresses: string[], callback: (msg: NotifyMessage) => void) {
+        this.sendRequest({ command: 'watch', params: addresses });
+        super.addListener('NotifyMessage', callback);
     }
 
     close() {
