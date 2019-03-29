@@ -9,7 +9,7 @@ export default class Keyman {
     constructor(mnemonicCode: string, passphrase?: string);
     deviceAddress(xPrivKey: any): string;
     genAddress(index: number): string;
-    sign(b64_hash: string, index?: number): string;
+    sign(b64_hash: string, encoding?: string, index?: number): string;
     verify(b64_hash: string, sig: string, pub_key: string): boolean;
     /**
      * Gen ecdsa pub key
