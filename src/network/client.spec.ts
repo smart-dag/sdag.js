@@ -24,8 +24,6 @@ test('gets mci', async t => {
     let statistics = await client.getNetStatistics();
     t.true(statistics != null);
 
-    let tps = await client.getTps();
-    t.deepEqual(JSON.stringify(tps), '');
 });
 
 test('gets balance', async t => {

@@ -60,9 +60,9 @@ export default class Keyman {
         return address;
     }
 
-    sign(b64_hash: string, encoding = 'base64', index = 0) {
+    sign(b64_hash: string, index = 0) {
         try {
-            let buf_to_sign = new Buffer(b64_hash, encoding);
+            let buf_to_sign = new Buffer(b64_hash, 'base64');
             let xPrivKey = this.mainXprivKey;
             let privateKey = xPrivKey.derive(`m/0/${index}`)['privateKey'];
             let privKeyBuf = privateKey.bn.toBuffer({ size: 32 });
@@ -70,7 +70,7 @@ export default class Keyman {
             let res = ecdsa.sign(buf_to_sign, privKeyBuf);
             return res.signature.toString("base64");
         } catch (error) {
-            return "0";
+            return error.message;
         }
     }
 
@@ -85,6 +85,25 @@ export default class Keyman {
         } catch (errer) {
             return false;
         }
+    }
+
+    signMessage(text: string) {
+        let sha256 = crypto.createHash('sha256');
+        let hash = sha256.update(text).digest('base64');
+        return this.sign(hash);
+    }
+
+    verifyMessage(origin: string, signed: string) {
+        let sha256 = crypto.createHash('sha256');
+        let hash = sha256.update(origin).digest('base64');
+
+        let xPrivKey = this.mainXprivKey;
+        let privateKey = xPrivKey.derive(`m/0/0`)['privateKey'];
+        let privKeyBuf = privateKey.bn.toBuffer({ size: 32 });
+
+        let pubKey = ecdsa.publicKeyCreate(privKeyBuf);
+
+        return ecdsa.verify(Buffer.from(hash, 'base64'), Buffer.from(signed, 'base64'), pubKey);
     }
 
     /**
