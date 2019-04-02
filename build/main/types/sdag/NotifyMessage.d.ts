@@ -1,6 +1,7 @@
 export interface NotifyMessage {
     from: string;
-    to: string;
-    unit: string;
+    text: string;
     time: number;
+    to_msg: (number | string)[][];
+    unit: string;
 }
