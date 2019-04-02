@@ -12,6 +12,7 @@ export default class HubClient extends EventEmitter {
     private pendingRequests = new Map<string, (resp?: IRequestResponse) => void>();
     private tag = 0;
     connected = false;
+    peerId?: string;
 
     private createSocket(address: string) {
         try {
@@ -131,7 +132,7 @@ export default class HubClient extends EventEmitter {
 
     sendSubscribe() {
         let id = crypto.randomBytes(32).toString('hex');
-        this.sendRequest({ command: 'subscribe', params: { peer_id: id, last_mci: 10, } });
+        this.sendRequest({ command: 'subscribe', params: { peer_id: this.peerId || id, last_mci: 10, } });
     }
 
     private handleJustsaying(content: IJustsayingResponse) {
