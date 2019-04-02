@@ -141,7 +141,7 @@ export default class HubClient extends EventEmitter {
                 this.emit('joint', content.body as Joint);
                 break;
 
-            case 'NotifyMessage':
+            case 'notify':
                 this.emit('NotifyMessage', content.body as NotifyMessage);
                 break;
         }
