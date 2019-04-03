@@ -93,7 +93,7 @@ export default class Keyman {
         return this.sign(hash);
     }
 
-    verifyMessage(origin: string, signed: string) {
+    verifyMessage(origin: string, signed: string, pubkeyBuf?: Buffer) {
         let sha256 = crypto.createHash('sha256');
         let hash = sha256.update(origin).digest('base64');
 
@@ -101,7 +101,7 @@ export default class Keyman {
         let privateKey = xPrivKey.derive(`m/0/0`)['privateKey'];
         let privKeyBuf = privateKey.bn.toBuffer({ size: 32 });
 
-        let pubKey = ecdsa.publicKeyCreate(privKeyBuf);
+        let pubKey = pubkeyBuf || ecdsa.publicKeyCreate(privKeyBuf);
 
         return ecdsa.verify(Buffer.from(hash, 'base64'), Buffer.from(signed, 'base64'), pubKey);
     }

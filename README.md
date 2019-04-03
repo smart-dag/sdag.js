@@ -48,6 +48,13 @@ let man = new Keyman(mnemnoic, passphrase);
 
 await client.transfer({ to: 'To', from: 'From', amount: 2, ecdsaPubkey: man.mainEcdsaPubKey }, (hash) => man.sign(hash));
 
+
+// Sign and verify text messages
+
+let signed = man.signMessage('hello sdag');
+let ok = man.verifyMessage('hello sdag', signed);
+let ok2 = man.verifyMessage('other message' ,otherSignedMessage, otherPubkey);
+
 ```
 
 | Method | Description | Return |
@@ -57,6 +64,8 @@ await client.transfer({ to: 'To', from: 'From', amount: 2, ecdsaPubkey: man.main
 |  sign | Sign unit hash when you transfer assets  | string | 
 | verify | Verify a signed string | boolean |
 | ecdsaPubkey | Gen a ecdsa pub key by index | string |
+| signMessage| Sign a text message | string |
+| verifyMessage | Verify a text message | boolean |
 
 ## License
 

@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { HDPublicKey, HDPrivateKey } from 'bitcore-lib';
 export default class Keyman {
     mainXprivKey: HDPrivateKey;
@@ -12,7 +13,7 @@ export default class Keyman {
     sign(b64_hash: string, index?: number): any;
     verify(b64_hash: string, sig: string, pub_key: string): boolean;
     signMessage(text: string): any;
-    verifyMessage(origin: string, signed: string): boolean;
+    verifyMessage(origin: string, signed: string, pubkeyBuf?: Buffer): boolean;
     /**
      * Gen ecdsa pub key
      * @param {number} index
