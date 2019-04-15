@@ -15,14 +15,15 @@ it('tests constants', t => {
     // t.true(man.mainXpubKey.toString().startsWith('xpub'));
     // t.true(man.mainAddress === 'PE3L5RAB6OJDDHVBNRLRUDDL74B2BIJF');
     t.true(man.mainAddress === '6CW76VRWSSGIVXGVUTWAAEFU23UOZQCT')
+    t.true(man.validateAddress(man.mainAddress));
 });
 
-it('signs message', t => {
-    let man = new Keyman(mnemonic);
-    let signed = man.signMessage('hello world');
-    t.true(signed === 'h4dRAK3M3bAw+nIYG850ShJopiHH67skURwtaMakY/QTs163csdEC8CkuvKbRcYhD57Y0NIyNQHpu+a4dSpt4g==');
-    t.true(man.verifyMessage('hello world', signed));
-});
+// it('signs message', t => {
+//     let man = new Keyman(mnemonic);
+//     let signed = man.signMessage('hello world');
+//     t.true(signed === 'h4dRAK3M3bAw+nIYG850ShJopiHH67skURwtaMakY/QTs163csdEC8CkuvKbRcYhD57Y0NIyNQHpu+a4dSpt4g==');
+//     t.true(man.verifyMessage('hello world', signed));
+// });
 
 // it('gen address', t => {
 //     let man = new Keyman(mnemonic);

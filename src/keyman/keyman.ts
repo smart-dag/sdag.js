@@ -60,6 +60,10 @@ export default class Keyman {
         return address;
     }
 
+    validateAddress(addr: string){
+        return hash.isChashValid(addr);
+    }
+
     sign(b64_hash: string, index = 0) {
         try {
             let buf_to_sign = new Buffer(b64_hash, 'base64');

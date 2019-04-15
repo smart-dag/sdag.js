@@ -111,7 +111,7 @@ function bin2buffer(bin) {
 
 function getChecksum(clean_data) {
     var full_checksum = crypto.createHash("sha256").update(clean_data).digest();
-    //console.log(full_checksum);
+    // console.log('full_checksum', full_checksum);
     var checksum = new Buffer([full_checksum[5], full_checksum[13], full_checksum[21], full_checksum[29]]);
     return checksum;
 }
@@ -146,16 +146,20 @@ function getChash288(data) {
     return getChash(data, 288);
 }
 
-function isChashValid(encoded) {
+function isChashValid(encoded: string) {
     var encoded_len = encoded.length;
     if (encoded_len !== 32 && encoded_len !== 48) // 160/5 = 32, 288/6 = 48
         throw "wrong encoded length: " + encoded_len;
     var chash = (encoded_len === 32) ? base32.decode(encoded) : new Buffer(encoded, 'base64');
     var binChash = buffer2bin(chash);
+    
     var separated = separateIntoCleanDataAndChecksum(binChash);
     var clean_data = bin2buffer(separated.clean_data);
     //console.log("clean data", clean_data);
     var checksum = bin2buffer(separated.checksum);
+    // console.log('clean data', clean_data);
+    // console.error('checksum', checksum);
+    // console.log('getchecksum', getChecksum(clean_data));
     //console.log(checksum);
     //console.log(getChecksum(clean_data));
     return checksum.equals(getChecksum(clean_data));

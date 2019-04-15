@@ -10,6 +10,7 @@ export default class Keyman {
     constructor(mnemonicCode: string, passphrase?: string);
     deviceAddress(xPrivKey: any): string;
     genAddress(index: number): string;
+    validateAddress(addr: string): boolean;
     sign(b64_hash: string, index?: number): any;
     verify(b64_hash: string, sig: string, pub_key: string): boolean;
     signMessage(text: string): any;

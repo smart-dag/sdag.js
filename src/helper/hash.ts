@@ -53,6 +53,10 @@ export function getChash160(obj) {
     return chash.getChash160(getSourceString(obj));
 }
 
+export function isChashValid(encoded: string) {
+    return chash.isChashValid(encoded);
+}
+
 export function getBase64Hash(obj) {
     try {
         if (typeof (obj) == "string")
@@ -168,6 +172,7 @@ function getDeviceMessageHashToSign(objDeviceMessage) {
 export default {
     getSourceString,
     getChash160,
+    isChashValid,
     getBase64Hash,
     getUnitHashToSign,
     getUnitHash,
