@@ -50,7 +50,8 @@ export function getSourceString(obj) {
 }
 
 export function getChash160(obj) {
-    return chash.getChash160(getSourceString(obj));
+    let str = getSourceString(obj);
+    return chash.getChash160(str) as string;
 }
 
 export function isChashValid(encoded: string) {

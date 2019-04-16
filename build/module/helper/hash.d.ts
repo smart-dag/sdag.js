@@ -1,5 +1,5 @@
 export declare function getSourceString(obj: any): string;
-export declare function getChash160(obj: any): any;
+export declare function getChash160(obj: any): string;
 export declare function isChashValid(encoded: string): boolean;
 export declare function getBase64Hash(obj: any): string;
 export declare function base64HashString(str: string): string;
