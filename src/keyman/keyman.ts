@@ -4,6 +4,7 @@ import { HDPublicKey, HDPrivateKey, PublicKey } from 'bitcore-lib';
 import crypto from 'crypto';
 import hash from '../helper/hash';
 import ecdsa from 'secp256k1';
+import chash from '../helper/chash';
 
 export default class Keyman {
 
@@ -60,13 +61,13 @@ export default class Keyman {
         return address;
     }
 
-    validateAddress(addr: string){
-        return hash.isChashValid(addr);
+    validateAddress(addr: string) {
+        return chash.isChashValid2(addr);
     }
 
     sign(b64_hash: string, index = 0) {
         try {
-            let buf_to_sign = new Buffer(b64_hash, 'base64');
+            let buf_to_sign = Buffer.from(b64_hash, 'base64');
             let xPrivKey = this.mainXprivKey;
             let privateKey = xPrivKey.derive(`m/0/${index}`)['privateKey'];
             let privKeyBuf = privateKey.bn.toBuffer({ size: 32 });
@@ -80,9 +81,9 @@ export default class Keyman {
 
     verify(b64_hash: string, sig: string, pub_key: string) {
         try {
-            var buf_to_verify = new Buffer(b64_hash, "base64");
-            var signature = new Buffer(sig, "base64"); // 64 bytes (32+32)
-            if (ecdsa.verify(buf_to_verify, signature, new Buffer(pub_key, "base64")))
+            var buf_to_verify = Buffer.from(b64_hash, "base64");
+            var signature = Buffer.from(sig, "base64"); // 64 bytes (32+32)
+            if (ecdsa.verify(buf_to_verify, signature, Buffer.from(pub_key, "base64")))
                 return true;
             else
                 return false;
