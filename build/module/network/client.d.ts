@@ -35,6 +35,7 @@ export default class HubClient extends EventEmitter {
     private handleRequest;
     private handleResponse;
     onJoint(cb: (unit: Joint) => void): void;
+    onServerLost(cb: () => void): void;
     getJoint(hash: string): Promise<PropertyJoint>;
     getNetworkInfo(): Promise<NetworkInfo>;
     getNetState(): Promise<NetState>;

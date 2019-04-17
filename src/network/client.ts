@@ -30,6 +30,7 @@ export default class HubClient extends EventEmitter {
             this.ws = this.createSocket(this.address);
             this.setup(this.ws);
             this.connected = false;
+            this.emit('server_lost');
         };
 
         client.onopen = () => {
@@ -167,6 +168,10 @@ export default class HubClient extends EventEmitter {
 
     onJoint(cb: (unit: Joint) => void) {
         super.addListener('joint', cb);
+    }
+
+    onServerLost(cb: () => void) {
+        super.addListener('server_lost', cb);
     }
 
     getJoint(hash: string): Promise<PropertyJoint> {
@@ -410,6 +415,7 @@ export default class HubClient extends EventEmitter {
         if (!this.ws) return;
 
         try {
+            this.removeAllListeners();
             this.ws.close()
             this.ws.onclose = null;
             this.ws.onmessage = null;

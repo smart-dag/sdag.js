@@ -1,6 +1,6 @@
 {
   "name": "sdag.js",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "SDAG.js",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",

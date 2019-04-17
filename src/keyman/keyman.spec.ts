@@ -14,7 +14,8 @@ it('tests constants', t => {
     // t.true(man.walletId === '6KhqmvXQKFOPNBvbqQs0XCQ44+el9f2McTA+bui53pc=');
     // t.true(man.mainXpubKey.toString().startsWith('xpub'));
     // t.true(man.mainAddress === 'PE3L5RAB6OJDDHVBNRLRUDDL74B2BIJF');
-    t.true(man.mainAddress === '6CW76VRWSSGIVXGVUTWAAEFU23UOZQCT')
+    t.true(man.mainAddress === '6CW76VRWSSGIVXGVUTWAAEFU23UOZQCT');
+    t.true(man.validateAddress(man.mainAddress));
 });
 
 it('signs message', t => {
