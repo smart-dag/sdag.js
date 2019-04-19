@@ -406,6 +406,15 @@ export default class HubClient extends EventEmitter {
         });
     }
 
+    async getCurrentTps(): Promise<number> {
+        return new Promise((resolve, reject) => {
+            this.sendRequest({ command: 'get_current_tps' }, resp => {
+                if (!resp) reject('null response');
+                resolve(resp.response);
+            });
+        });
+    }
+
     watch(addresses: string[], callback: (msg: NotifyMessage) => void) {
         this.sendRequest({ command: 'watch', params: addresses });
         super.addListener('NotifyMessage', callback);

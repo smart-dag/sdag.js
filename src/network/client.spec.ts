@@ -4,7 +4,7 @@ import Client from './client';
 let client = new Client();
 
 test.before(async () => {
-    await client.connect('ws://10.168.3.131:6615');
+    await client.connect('ws://10.168.1.123:6615');
 });
 
 test('gets free joints', async t => {
@@ -39,4 +39,9 @@ test('gets balance', async t => {
     // let joint = await client.getJoint('sKm2SUIwJ37KPHNCGF2616+VmdqLRnyuV5WfVq9Xj8Q=');
     // t.true(!joint.error);
     // t.true(joint.joint.unit.unit === 'sKm2SUIwJ37KPHNCGF2616+VmdqLRnyuV5WfVq9Xj8Q=');
+});
+
+test('get current tps', async t => {
+    let tps = await client.getCurrentTps();
+    t.true(typeof tps === 'number');
 });
