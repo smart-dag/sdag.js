@@ -122,6 +122,7 @@ export default class HubClient extends EventEmitter {
     }>;
     getTps(): Promise<Tps>;
     getCurrentTps(): Promise<number>;
+    getDailyTps(): Promise<any>;
     watch(addresses: string[], callback: (msg: NotifyMessage) => void): void;
     close(): void;
 }

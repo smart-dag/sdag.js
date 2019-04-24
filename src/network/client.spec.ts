@@ -45,3 +45,8 @@ test('get current tps', async t => {
     let tps = await client.getCurrentTps();
     t.true(typeof tps === 'number');
 });
+
+test('get daily tps', async t => {
+    let data = await client.getDailyTps();
+    t.deepEqual(data, {});
+});

@@ -27,15 +27,17 @@ export default class HubClient extends EventEmitter {
 
         client.onclose = () => {
             clearInterval(heartbeatTimer);
-            this.ws = this.createSocket(this.address);
-            this.setup(this.ws);
             this.connected = false;
             this.emit('server_lost');
+
+            setTimeout(() => {
+                this.ws = this.createSocket(this.address);
+                this.setup(this.ws);
+            }, 3000);
         };
 
         client.onopen = () => {
             this.sendVersion({ protocol_version: '1.0', alt: '1', library: 'rust-dag', library_version: '0.1.0', program: 'sdag-explorer', program_version: '0.1.0' });
-            this.sendSubscribe();
             this.connected = true;
             heartbeatTimer = setInterval(() => this.sendHeartbeat(), 3000);
 
@@ -407,6 +409,15 @@ export default class HubClient extends EventEmitter {
     async getCurrentTps(): Promise<number> {
         return new Promise((resolve, reject) => {
             this.sendRequest({ command: 'get_current_tps' }, resp => {
+                if (!resp) reject('null response');
+                resolve(resp.response);
+            });
+        });
+    }
+
+    async getDailyTps(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.sendRequest({ command: 'get_daily_tps' }, resp => {
                 if (!resp) reject('null response');
                 resolve(resp.response);
             });
