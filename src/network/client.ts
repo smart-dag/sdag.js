@@ -25,17 +25,6 @@ export default class HubClient extends EventEmitter {
     private setup(client: WebSocket | ws, onOpen: () => void = undefined) {
         let heartbeatTimer: NodeJS.Timer;
 
-        client.onclose = () => {
-            clearInterval(heartbeatTimer);
-            this.connected = false;
-            this.emit('server_lost');
-
-            setTimeout(() => {
-                this.ws = this.createSocket(this.address);
-                this.setup(this.ws);
-            }, 3000);
-        };
-
         client.onopen = () => {
             this.sendVersion({ protocol_version: '1.0', alt: '1', library: 'rust-dag', library_version: '0.1.0', program: 'sdag-explorer', program_version: '0.1.0' });
             this.connected = true;
@@ -49,7 +38,18 @@ export default class HubClient extends EventEmitter {
 
         client.onmessage = this.onMessage;
 
-        client.onerror = (err) => super.emit('error', err.message);
+        client.onerror = (err) => {
+            super.emit('error', err.message);
+
+            clearInterval(heartbeatTimer);
+            this.connected = false;
+            this.emit('server_lost');
+
+            setTimeout(() => {
+                this.ws = this.createSocket(this.address);
+                this.setup(this.ws);
+            }, 3000);
+        };
     }
 
     async connect(address: string) {
