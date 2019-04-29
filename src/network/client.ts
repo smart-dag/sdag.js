@@ -157,7 +157,8 @@ export default class HubClient extends EventEmitter {
 
     private handleRequest(content: IRequestContent) {
         if (content.command === 'subscribe') {
-            this.sendResponse({ tag: content.tag, response: { peer_id: this.peerId, is_source: false } });
+            let peerId = content.params.peer_id;
+            this.sendResponse({ tag: content.tag, response: { peer_id: peerId || this.peerId, is_source: false } });
         }
     }
 
