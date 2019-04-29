@@ -14,6 +14,11 @@ export default class HubClient extends EventEmitter {
     connected = false;
     peerId?: string;
 
+    constructor(opts: { peerId: string }) {
+        super();
+        this.peerId = opts.peerId;
+    }
+
     private createSocket(address: string) {
         try {
             return new WebSocket(address);

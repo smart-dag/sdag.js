@@ -8,6 +8,9 @@ export default class HubClient extends EventEmitter {
     private tag;
     connected: boolean;
     peerId?: string;
+    constructor(opts: {
+        peerId: string;
+    });
     private createSocket;
     private setup;
     connect(address: string): Promise<boolean>;

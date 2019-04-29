@@ -1,7 +1,7 @@
 import test from 'ava';
 import Client from './client';
 
-let client = new Client();
+let client = new Client({ peerId: 'KOQXPPXPNJL5RYI4JO37HEBDTMYB7BGT' });
 
 test.before(async () => {
     await client.connect('ws://10.168.1.123:6615');
