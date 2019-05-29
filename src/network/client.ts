@@ -167,6 +167,7 @@ export default class HubClient extends EventEmitter {
         if (!this.pendingRequests.has(content.tag)) return;
 
         let resolver = this.pendingRequests.get(content.tag);
+        this.pendingRequests.delete(content.tag);
         if (!resolver) return;
 
         resolver(content);
