@@ -139,8 +139,7 @@ export default class HubClient extends EventEmitter {
     }
 
     sendSubscribe() {
-        let id = crypto.randomBytes(32).toString('hex');
-        this.sendRequest({ command: 'subscribe', params: { peer_id: this.peerId || id, last_mci: 10, } });
+        this.sendRequest({ command: 'subscribe', params: { peer_id: this.peerId || crypto.randomBytes(32).toString('hex'), last_mci: 10, } });
     }
 
     private handleJustsaying(content: IJustsayingResponse) {
@@ -158,7 +157,7 @@ export default class HubClient extends EventEmitter {
     private handleRequest(content: IRequestContent) {
         if (content.command === 'subscribe') {
             let peerId = content.params.peer_id;
-            this.sendResponse({ tag: content.tag, response: { peer_id: this.peerId || peerId, is_source: false } });
+            this.sendResponse({ tag: content.tag, response: { peer_id: peerId || this.peerId, is_source: false } });
         }
     }
 
