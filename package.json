@@ -55,7 +55,7 @@
     "bitcore-mnemonic": "^1.7.0",
     "secp256k1": "^3.7.1",
     "thirty-two": "^1.0.2",
-    "ws": "^6.2.1"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "@types/bip39": "^2.4.2",
